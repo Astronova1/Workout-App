@@ -9,7 +9,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchWorkouts = async() =>{
-            const response = await fetch('https://exercise-app-neon.vercel.app')
+            const response = await fetch('https://exercise-app-neon.vercel.app/api/workouts')
             const json = await response.json()
 
             if (response.ok) {
