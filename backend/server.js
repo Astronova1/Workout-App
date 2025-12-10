@@ -8,7 +8,12 @@ const app = express();
 const workoutRoutes = require('./routes/workouts');
 
 // middleware
-app.use(cors()); // ALLOWS FRONTEND TO TALK TO BACKEND
+// backend/server.js
+app.use(cors({
+    origin: ["http://localhost:3000", "https://your-frontend-project.vercel.app"], // You will update this later
+    methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true
+}));
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -31,9 +36,9 @@ mongoose.connect(process.env.MONG_URI)
 module.exports = app;
 
 // ONLY LISTEN IF RUNNING LOCALLY (Not on Vercel)
-if (require.main === module) {
-    const port = process.env.PORT || 4000;
-    app.listen(port, () => {
-        console.log(`The server is running on Port ${port}`);
-    });
-}
+// if (require.main === module) {
+//     const port = process.env.PORT || 4000;
+//     app.listen(port, () => {
+//         console.log(`The server is running on Port ${port}`);
+//     });
+// }
