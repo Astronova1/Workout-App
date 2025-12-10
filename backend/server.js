@@ -9,7 +9,7 @@ const workoutRoutes = require('./routes/workouts');
 
 // middleware
 app.use(cors({
-    origin: ["https://exercise-app-h5lu.vercel.app/", "http://localhost:3000"], // Add your frontend URLs here
+    origin: ["https://exercise-app-h5lu.vercel.app", "http://localhost:3000"], // Add your frontend URLs here
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true
 }));
