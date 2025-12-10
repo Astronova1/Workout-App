@@ -7,35 +7,8 @@ const cors = require('cors'); // Import CORS
 const app = express();
 const workoutRoutes = require('./routes/workouts');
 
-app.use((req, res, next) => {
-    console.log(req.path, req.method);
-    next();
-});
-
-// ADD THIS ROUTE TO TEST DB CONNECTION
-app.get('/api/health', (req, res) => {
-    // mongoose.connection.readyState: 
-    // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
-    const state = mongoose.connection.readyState;
-    
-    if (state === 1) {
-        res.status(200).json({ status: "OK", msg: "Database is connected" });
-    } else {
-        res.status(500).json({ status: "ERROR", msg: "Database is NOT connected", state: state });
-    }
-});
-
-// routes
-app.use('/api/workouts', workoutRoutes);
-// ...existing code...
-
 // middleware
-app.use(cors({
-    origin: ["https://exercise-app-h5lu.vercel.app", "http://localhost:3000"], // Add your frontend URLs here
-    methods: ["POST", "GET", "DELETE", "PATCH"],
-    credentials: true
-}));
-app.use(express.json());
+app.use(cors()); // ALLOWS FRONTEND TO TALK TO BACKEND
 app.use(express.json());
 
 app.use((req, res, next) => {
