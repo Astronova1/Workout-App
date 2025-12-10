@@ -1,28 +1,39 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors'); // Import CORS
 
-//express app
+// express app
 const app = express();
 const workoutRoutes = require('./routes/workouts');
 
-//middleware (use to get request body)
-app.use(express.json())
+// middleware
+app.use(cors()); // ALLOWS FRONTEND TO TALK TO BACKEND
+app.use(express.json());
 
-app.use((req,res,next) => {
-    console.log(req.path, req.method)
+app.use((req, res, next) => {
+    console.log(req.path, req.method);
     next();
-})
+});
 
-//routes
-app.use('/api/workouts',workoutRoutes);
+// routes
+app.use('/api/workouts', workoutRoutes);
 
-//connect to db
+// connect to db
+// We connect immediately, but we don't block the app export
 mongoose.connect(process.env.MONG_URI)
-.then( () => { 
-    app.listen(process.env.PORT, () => {
-    console.log("The server is running on Port 4000")
-})
-})
-.catch(err => console.log(err));
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch(err => console.log(err));
 
+// EXPORT THE APP FOR VERCEL
+module.exports = app;
+
+// ONLY LISTEN IF RUNNING LOCALLY (Not on Vercel)
+if (require.main === module) {
+    const port = process.env.PORT || 4000;
+    app.listen(port, () => {
+        console.log(`The server is running on Port ${port}`);
+    });
+}
