@@ -13,7 +13,7 @@ const WorkoutForm = () => {
 
         const workout = {title, load, reps}
 
-        const response = await fetch('exercise-app-neon.vercel.app/api/workouts/', {           ///api/workouts
+        const response = await fetch('https://exercise-app-silk.vercel.app/api/workouts//api/workouts/', {           ///api/workouts
             method: 'POST',
             body: JSON.stringify(workout),
             headers: {

@@ -5,7 +5,7 @@ const WorkoutDetails = ({ workout }) => {
     const { dispatch } = useWorkoutsContext()
 
     const handleClick = async () => {
-        const response = await fetch('https://exercise-app-neon.vercel.app/api/workouts/' + workout._id, {      ///api/workouts/
+        const response = await fetch('https://exercise-app-silk.vercel.app/api/workouts/' + workout._id, {      ///api/workouts/
             method: 'DELETE'
         })
         const json = await response.json()
