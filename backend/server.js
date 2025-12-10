@@ -8,7 +8,12 @@ const app = express();
 const workoutRoutes = require('./routes/workouts');
 
 // middleware
-app.use(cors()); // ALLOWS FRONTEND TO TALK TO BACKEND
+app.use(cors({
+    origin: ["https://exercise-app-h5lu.vercel.app/", "http://localhost:3000"], // Add your frontend URLs here
+    methods: ["POST", "GET", "DELETE", "PATCH"],
+    credentials: true
+}));
+app.use(express.json());
 app.use(express.json());
 
 app.use((req, res, next) => {
