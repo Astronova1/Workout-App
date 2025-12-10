@@ -10,7 +10,7 @@ const workoutRoutes = require('./routes/workouts');
 // middleware
 // backend/server.js
 app.use(cors({
-    origin: ["http://localhost:3000", "https://your-frontend-project.vercel.app"], // You will update this later
+    origin: ["http://localhost:3000", "https://exercise-app-silk.vercel.app"], // You will update this later
     methods: ["POST", "GET", "DELETE", "PATCH"],
     credentials: true
 }));
