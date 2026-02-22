@@ -13,7 +13,14 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "cors": "^2.8.5",
+    "react-is": "^19.2.3",
+    "recharts": "^3.7.0"
+  },
+  "overrides": {
+    "react": "$react",
+    "react-dom": "$react-dom"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,4 +46,5 @@
       "last 1 safari version"
     ]
   }
+  
 }

@@ -1,12 +1,29 @@
 import { useWorkoutsContext } from "../hooks/useWorkoutContext"
+import { useAuthContext } from "../hooks/useAuthContext"
+import { Link } from 'react-router-dom'
+
+//date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 const WorkoutDetails = ({ workout }) => {
 
     const { dispatch } = useWorkoutsContext()
-
+    const { user } = useAuthContext()
     const handleClick = async () => {
-        const response = await fetch('https://exercise-app-silk.vercel.app/api/workouts/' + workout._id, {      ///api/workouts/
-            method: 'DELETE'
+        if (!user){
+            return
+        }
+
+        let result = window.confirm('Do you want to delete this workout?')
+        if(!result){
+            return
+        }
+
+        const response = await fetch('/api/workouts/' + workout._id, {      ///api/workouts/
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         })
         const json = await response.json()
 
@@ -15,13 +32,17 @@ const WorkoutDetails = ({ workout }) => {
         }
     }
 
+
     return (
         <div className="workout-details">
             <h4>{workout.title}</h4>
             <p><strong>Load (kg):</strong>{workout.load}</p>
             <p><strong>Reps: </strong>{workout.reps}</p>
-            <p>{workout.createdAt}</p>
-            <span onClick={handleClick}>delete</span>
+            <p>{formatDistanceToNow(new Date(workout.createdAt), {addSuffix: true})}</p>
+            <div className="workout-icons">
+                <Link to={`/${workout._id}`}><span className="material-symbols-outlined" >edit</span></Link>
+                <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
+            </div>            
         </div>
     )
 }
