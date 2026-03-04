@@ -22,7 +22,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchWorkouts = async() =>{
-            const response = await fetch(`/api/workouts/?page=${page}&sort=${sort}`, {
+            const response = await fetch(`/api/workouts/?page=${page}&sort=${sort}&query=${query}`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -40,14 +40,14 @@ const Home = () => {
             fetchWorkouts()
         }
 
-    },[dispatch, user,page, sort])
+    },[dispatch, user,page, sort, query])
 
-            const filteredData = workouts ? workouts.filter((workout) => {
+       /*     const filteredData = workouts ? workouts.filter((workout) => {
             if (query === ''){
                 return workout
             }
             return workout.title.toLowerCase().includes(query.toLowerCase())
-        }) : []
+        }) : []   */
 
         console.log('Current sort is:'+ sort)
 
@@ -60,9 +60,10 @@ const Home = () => {
                     <Filter currentSort={sort} setSort={(newsort)=>setSort(newsort)} />
                 </div>
                         <div className="charts">
-                    {filteredData && <WorkoutCharts workouts= {filteredData.lenght > 0 ? filteredData : workouts} />}
+                    {/*filteredData && <WorkoutCharts workouts= {filteredData.lenght > 0 ? filteredData : workouts} /> */}
+                    {<WorkoutCharts workouts={workouts}></WorkoutCharts>}
                 </div>
-                {filteredData && filteredData.map((wk) =>(
+                {workouts && workouts.map((wk) =>(
                     <WorkoutDetails key={wk._id} workout={wk}/>
                 ))}
                 <h5>Page {page+1} of {numOfPages}</h5>

@@ -8,11 +8,21 @@ const getWorkouts = async (req,res) => {
     const user_id = req.user._id
     const page = parseInt(req.query.page || 0)
     const sortBy = parseInt(req.query.sort || -1)
+    const search = req.query.query || ''
     const wrks_per_page = 6
     const total = await Workout.countDocuments({user_id});
 
+    const myDemands = {
+        user_id
+    }
 
-    const workoutsSend = await Workout.find({user_id})
+        if (search) {
+        myDemands.title = { $regex: search, $options: 'i' }
+    }
+
+    const workoutsSend = await Workout.find(
+        myDemands
+        )
     .sort({createdAt: + sortBy})
     .skip(wrks_per_page * page)
     .limit(wrks_per_page);
@@ -106,11 +116,25 @@ const {id} = req.params
     res.status(200).json(workout)
 
 }
+/*
+//seach for workouts
+const searchWorkouts = async (req,res) => {
+    const {search} = req.query.query || ''
+    if (search === ''){
+        return
+    } 
+    const workout = await Workout.Find({search})
 
+    if (!workout){
+        res.status(400).json({msg: 'No workout found'})
+    }
+    res.status(200).json(workout)
+}
+*/
 module.exports = {
     createworkout,
     getWorkouts,
     getWorkout,
     deleteWorkout,
-    updateWorkout
+    updateWorkout,
 }
