@@ -10,7 +10,6 @@ const getWorkouts = async (req,res) => {
     const sortBy = parseInt(req.query.sort || -1)
     const search = req.query.query || ''
     const wrks_per_page = 6
-    const total = await Workout.countDocuments({user_id});
 
     const myDemands = {
         user_id
@@ -19,6 +18,8 @@ const getWorkouts = async (req,res) => {
         if (search) {
         myDemands.title = { $regex: search, $options: 'i' }
     }
+
+    const total = await Workout.countDocuments(myDemands);
 
     const workoutsSend = await Workout.find(
         myDemands
