@@ -117,6 +117,11 @@ const {id} = req.params
     res.status(200).json(workout)
 
 }
+
+//get total no of workouts
+/*const getTotalWorkouts = async(req,res) => {
+        const total = await Workout.countDocuments(myDemands);
+}/*
 /*
 //seach for workouts
 const searchWorkouts = async (req,res) => {
@@ -137,5 +142,6 @@ module.exports = {
     getWorkouts,
     getWorkout,
     deleteWorkout,
-    updateWorkout,
+    updateWorkout
+//    getTotalWorkouts
 }
