@@ -8,6 +8,12 @@ const userStats = require('./routes/stats')
 
 // express app
 const app = express()
+const cors = require('cors')
+
+app.use(cors({
+  origin: ['https://workout-app-itci.onrender.com', 'http://localhost:3000'],
+  credentials: true
+}));
 
 // middleware
 app.use(express.json())
