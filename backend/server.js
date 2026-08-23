@@ -11,7 +11,7 @@ const app = express()
 const cors = require('cors')
 
 app.use(cors({
-  origin: ['https://workout-app-itci.onrender.com', 'http://localhost:3000'],
+  origin: ['https://workout-app-frontend-six.vercel.app', 'http://localhost:3000'],
   credentials: true
 }));
 
